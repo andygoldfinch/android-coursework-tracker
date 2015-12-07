@@ -16,9 +16,17 @@
         android:layout_alignParentStart="true" >
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:id="@+id/buttonSave"
+                android:onClick="handleButtonSave" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,6 +108,12 @@
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:id="@+id/editTextNotes"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Completed"
+                android:id="@+id/checkbox" />
 
         </LinearLayout>
     </ScrollView>

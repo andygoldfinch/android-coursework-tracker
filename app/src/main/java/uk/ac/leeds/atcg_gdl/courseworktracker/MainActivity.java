@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAdd = (Button) findViewById(R.id.buttonAdd);
     }
 
-    public void handleAddButtonClick(View view)
+    public void handleButtonAdd(View view)
     {
         Intent addIntent = new Intent(this, EditActivity.class);
         startActivity(addIntent);
