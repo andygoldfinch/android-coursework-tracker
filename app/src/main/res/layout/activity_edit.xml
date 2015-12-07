@@ -37,6 +37,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/label_module"
+                android:id="@+id/textViewModule" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextModule" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/label_deadline"
                 android:id="@+id/textViewDeadline" />
 
@@ -87,8 +99,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:ems="10"
-                android:id="@+id/editTextNotes"
-                android:lines ="4"/>
+                android:id="@+id/editTextNotes"/>
 
         </LinearLayout>
     </ScrollView>
