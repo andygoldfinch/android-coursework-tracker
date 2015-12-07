@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../../../../../../cserv1_a/soc_ug/sc14atcg/modules/GUIs/cw2/CourseworkTracker/CourseworkTracker.iml" filepath="$PROJECT_DIR$/../../../../../../cserv1_a/soc_ug/sc14atcg/modules/GUIs/cw2/CourseworkTracker/CourseworkTracker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../../../../../cserv1_a/soc_ug/sc14atcg/modules/GUIs/cw2/CourseworkTracker/app/app.iml" filepath="$PROJECT_DIR$/../../../../../../cserv1_a/soc_ug/sc14atcg/modules/GUIs/cw2/CourseworkTracker/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CourseworkTracker.iml" filepath="$PROJECT_DIR$/CourseworkTracker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
