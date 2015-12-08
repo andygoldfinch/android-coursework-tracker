@@ -27,9 +27,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAdd = (Button) findViewById(R.id.buttonAdd);
         listView = (ListView) findViewById(R.id.listView);
 
-        Coursework[] testCwArray = {new Coursework("t1", "t2", new Date(), 24, "", false),
-                new Coursework("test1", "test2", new Date(), 28, "n", true)};
-        populateListView(testCwArray);
+        populateListView(new Database(getApplicationContext()).getCourseworks(false));
     }
 
     public void handleButtonAdd(View view)

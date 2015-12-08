@@ -43,6 +43,7 @@ public class EditActivity extends AppCompatActivity {
         boolean completed = checkBoxCompleted.isChecked();
 
         Coursework coursework = new Coursework(moduleName, courseworkName, deadline, weight, notes, completed);
+        new Database(getApplicationContext()).saveCoursework(coursework);
     }
 
     public int getWeight(EditText editText)
