@@ -31,15 +31,8 @@ public class EditActivity extends AppCompatActivity {
         Date deadline = getDate(datePickerDeadline);
 
         EditText editTextWeight = (EditText) findViewById(R.id.editTextWeight);
-        int weight = Integer.parseInt(editTextWeight.getText().toString());
-        if (weight < 0 || weight > 100)
-        {
-            Toast weightErrorToast = Toast.makeText(
-                    getApplicationContext(),
-                    "Please enter a weight between 0 & 100",
-                    Toast.LENGTH_LONG
-            );
-            weightErrorToast.show();
+        int weight = getWeight(editTextWeight);
+        if (weight == -1) {
             return;
         }
 
@@ -50,6 +43,30 @@ public class EditActivity extends AppCompatActivity {
         boolean completed = checkBoxCompleted.isChecked();
 
         Coursework coursework = new Coursework(moduleName, courseworkName, deadline, weight, notes, completed);
+    }
+
+    public int getWeight(EditText editText)
+    {
+        int weight;
+        Toast weightErrorToast;
+        if (editText.getText().toString() == "")
+        {
+            weight = 0;
+            return weight;
+        }
+
+        weight = Integer.parseInt(editText.getText().toString());
+        if (weight < 0 || weight > 100)
+        {
+            weightErrorToast = Toast.makeText(
+                    getApplicationContext(),
+                    "Please enter a weight between 0 & 100",
+                    Toast.LENGTH_LONG
+            );
+            weightErrorToast.show();
+            return -1;
+        }
+        return weight;
     }
 
     public Date getDate(DatePicker datePicker)
