@@ -1,11 +1,12 @@
 package uk.ac.leeds.atcg_gdl.courseworktracker;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Represents a single coursework item.
  */
-public class Coursework {
+public class Coursework implements Serializable {
     private String moduleName;
     private String courseworkName;
     private Date deadline;
