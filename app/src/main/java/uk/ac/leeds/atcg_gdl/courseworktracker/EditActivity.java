@@ -41,6 +41,10 @@ public class EditActivity extends AppCompatActivity {
             displayCoursework(coursework);
             textName.setEnabled(false);
             textModule.setEnabled(false);
+
+            setTitle(R.string.edit_coursework_title);
+        } else {
+            setTitle(R.string.add_coursework_title);
         }
     }
 
