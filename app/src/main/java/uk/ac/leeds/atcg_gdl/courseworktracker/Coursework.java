@@ -62,7 +62,7 @@ public class Coursework implements Serializable {
      * @return The deadline date as a formatted string
      */
     public String getFormattedDeadline() {
-        return new SimpleDateFormat("EEE dd-MM-yyyy").format(deadline);
+        return new SimpleDateFormat("EEE dd MMM yyyy").format(deadline);
     }
 
     /**
