@@ -73,6 +73,8 @@ public class EditActivity extends AppCompatActivity {
 
         Coursework coursework = new Coursework(moduleName, courseworkName, deadline, weight, notes, completed);
         new Database(getApplicationContext()).saveCoursework(coursework);
+        createToast("Coursework saved");
+        finish();
     }
 
     private void displayCoursework(Coursework coursework)

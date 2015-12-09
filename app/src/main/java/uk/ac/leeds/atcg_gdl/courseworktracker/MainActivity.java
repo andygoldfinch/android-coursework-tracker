@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void handleButtonAdd(View view) {
         Intent addIntent = new Intent(this, EditActivity.class);
-        startActivity(addIntent);
+        startActivityForResult(addIntent, -1);
     }
 
     private void populateListView(Coursework[] courseworkArray) {
