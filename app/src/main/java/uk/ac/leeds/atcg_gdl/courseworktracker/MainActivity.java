@@ -8,9 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             courseworkProcessed.add(
                     courseworkArray[i].getCourseworkName() + "\n" +
                             courseworkArray[i].getModuleName() + " - " +
-                            courseworkArray[i].getDeadline());
+                            courseworkArray[i].getFormattedDeadline());
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, courseworkProcessed);
         listView.setAdapter(arrayAdapter);
