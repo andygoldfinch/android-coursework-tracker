@@ -121,9 +121,9 @@ public class EditActivity extends AppCompatActivity {
     private Date getDeadline() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(
-                datePicker.getDayOfMonth(),
+                datePicker.getYear(),
                 datePicker.getMonth(),
-                datePicker.getYear()
+                datePicker.getDayOfMonth()
         );
 
         return calendar.getTime();
