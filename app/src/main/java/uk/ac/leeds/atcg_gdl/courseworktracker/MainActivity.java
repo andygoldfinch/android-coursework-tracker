@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.listView);
     }
 
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         courseworkArray = new Database(getApplicationContext()).getCourseworks(false);
         populateListView(courseworkArray);
@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(addIntent, -1);
     }
 
+    /**
+     * Populate data in the list view from an array of Coursework objects using an ArrayAdapter.
+     *
+     * @param courseworkArray The array containing the objects to be displayed.
+     */
     private void populateListView(Coursework[] courseworkArray) {
         ArrayList<String> courseworkProcessed = new ArrayList<String>();
         for (int i = 0; i < courseworkArray.length; ++i) {
@@ -57,11 +62,19 @@ public class MainActivity extends AppCompatActivity {
                             courseworkArray[i].getModuleName() + " - " +
                             courseworkArray[i].getFormattedDeadline());
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, courseworkProcessed);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                courseworkProcessed
+        );
         listView.setAdapter(arrayAdapter);
         listView.setOnItemClickListener(new ListHandler());
     }
 
+    /**
+     * A class implementing AdapterView.OnItemClickListener, opening the edit screen when a list
+     * item is clicked and passing it the Coursework object that was clicked using an intent.
+     */
     private class ListHandler implements AdapterView.OnItemClickListener {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Intent editIntent = new Intent(MainActivity.this, EditActivity.class);

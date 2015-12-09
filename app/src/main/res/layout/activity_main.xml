@@ -13,10 +13,12 @@
         android:layout_height="wrap_content"
         android:text="@string/button_add"
         android:id="@+id/buttonAdd"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="handleButtonAdd" />
+        android:onClick="handleButtonAdd"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorButtonText"/>
 
     <ListView
         android:layout_width="wrap_content"

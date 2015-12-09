@@ -43,7 +43,8 @@
                     android:text="@string/button_save"
                     android:id="@+id/buttonSave"
                     android:onClick="handleButtonSave"
-                    android:textSize="19dp" />
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorButtonText"/>
             </LinearLayout>
 
             <EditText
@@ -78,8 +79,9 @@
                 android:layout_width="247dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/datePickerDeadline"
-                android:headerBackground="#C0C0C0"
-                android:padding="8dp" />
+                android:headerBackground="@color/colorPrimary"
+                android:padding="8dp"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
