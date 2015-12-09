@@ -3,75 +3,65 @@ package uk.ac.leeds.atcg_gdl.courseworktracker;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
+import java.util.*;
 
-import java.util.Calendar;
-import java.util.Date;
-
+/**
+ * An activity allowing the creation and editing of courseworks.
+ */
 public class EditActivity extends AppCompatActivity {
 
+    /**
+     * Creates the activity.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
     }
 
-    public void handleButtonSave(View view)
-    {
-        EditText editTextModule = (EditText) findViewById(R.id.editTextModule);
-        String moduleName = editTextModule.getText().toString();
+    /**
+     * Attempts to save the coursework when the save button is pressed.
+     * @param view
+     */
+    public void handleButtonSave(View view) {
+        String moduleName = getModuleName();
+        String courseworkName = getCourseworkName();
+        Date deadline = getDeadline();
+        int weight = getWeight();
+        String notes = getNotes();
+        boolean completed = getCompleted();
 
-        EditText editTextName = (EditText) findViewById(R.id.editTextName);
-        String courseworkName = editTextName.getText().toString();
-
-        DatePicker datePickerDeadline = (DatePicker) findViewById(R.id.datePickerDeadline);
-        Date deadline = getDate(datePickerDeadline);
-
-        EditText editTextWeight = (EditText) findViewById(R.id.editTextWeight);
-        int weight = getWeight(editTextWeight);
         if (weight == -1) {
             return;
         }
-
-        EditText editTextNotes = (EditText) findViewById(R.id.editTextNotes);
-        String notes = editTextNotes.getText().toString();
-
-        CheckBox checkBoxCompleted = (CheckBox) findViewById(R.id.checkbox);
-        boolean completed = checkBoxCompleted.isChecked();
 
         Coursework coursework = new Coursework(moduleName, courseworkName, deadline, weight, notes, completed);
         new Database(getApplicationContext()).saveCoursework(coursework);
     }
 
-    public int getWeight(EditText editText)
-    {
-        int weight;
-        Toast weightErrorToast;
-        if (editText.getText().toString() == "")
-        {
-            weight = 0;
-            return weight;
-        }
-
-        weight = Integer.parseInt(editText.getText().toString());
-        if (weight < 0 || weight > 100)
-        {
-            weightErrorToast = Toast.makeText(
-                    getApplicationContext(),
-                    "Please enter a weight between 0 & 100",
-                    Toast.LENGTH_LONG
-            );
-            weightErrorToast.show();
-            return -1;
-        }
-        return weight;
+    /**
+     * @return The module name from the ui
+     */
+    private String getModuleName() {
+        EditText text = (EditText) findViewById(R.id.editTextModule);
+        return text.getText().toString();
     }
 
-    public Date getDate(DatePicker datePicker)
-    {
+    /**
+     * @return The coursework name from the ui
+     */
+    private String getCourseworkName() {
+        EditText text = (EditText) findViewById(R.id.editTextName);
+        return text.getText().toString();
+    }
+
+    /**
+     * @return The deadline date from the ui
+     */
+    private Date getDeadline() {
+        DatePicker datePicker = (DatePicker) findViewById(R.id.datePickerDeadline);
         Calendar calendar = Calendar.getInstance();
         calendar.set(
                 datePicker.getDayOfMonth(),
@@ -80,5 +70,53 @@ public class EditActivity extends AppCompatActivity {
         );
 
         return calendar.getTime();
+    }
+
+    /**
+     * Attempts to retrived the weight value from the ui.
+     * Displays a toast to the user if validation fails.
+     *
+     * @return The weight value, or -1 if it is not valid.
+     */
+    private int getWeight() {
+        String weightText = ((EditText) findViewById(R.id.editTextWeight)).getText().toString();
+        if (weightText.length() == 0) {
+            createToast("Weight cannot be blank");
+            return -1;
+        }
+
+        int weight = Integer.parseInt(weightText);
+        if (weight < 0 || weight > 100) {
+            createToast("Weight must be between 0 & 100");
+            return -1;
+        }
+
+        return weight;
+    }
+
+    /**
+     * Shows a toast for the current application context.
+     *
+     * @param message The message to display
+     */
+    private void createToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * @return The notes text from the ui
+     */
+    private String getNotes() {
+        EditText text = (EditText) findViewById(R.id.editTextNotes);
+        return text.getText().toString();
+    }
+
+    /**
+     * @return Whether the coursework has been marked as completed.
+     */
+    private boolean getCompleted()
+    {
+        CheckBox checkbox = (CheckBox)findViewById(R.id.checkbox);
+        return checkbox.isChecked();
     }
 }
