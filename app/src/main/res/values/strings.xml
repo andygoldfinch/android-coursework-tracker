@@ -12,4 +12,5 @@
     <string name="hint_name">eg. Coursework 2</string>
     <string name="hint_module">eg. Software Engineering</string>
     <string name="hint_notes">eg. Pair project with George</string>
+    <string name="notification_title">Coursework Deadline</string>
 </resources>
