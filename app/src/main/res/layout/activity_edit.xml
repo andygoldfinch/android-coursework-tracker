@@ -7,4 +7,130 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="uk.ac.leeds.atcg_gdl.courseworktracker.EditActivity">
 
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/label_name"
+                    android:id="@+id/textViewName" />
+
+                <View android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_save"
+                    android:id="@+id/buttonSave"
+                    android:onClick="handleButtonSave"
+                    android:textSize="19dp" />
+            </LinearLayout>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextName"
+                android:singleLine="true"
+                android:hint="@string/hint_name"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/label_module"
+                android:id="@+id/textViewModule" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextModule"
+                android:singleLine="true"
+                android:hint="@string/hint_module"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/label_deadline"
+                android:id="@+id/textViewDeadline" />
+
+            <DatePicker
+                android:layout_width="247dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/datePickerDeadline"
+                android:headerBackground="#C0C0C0"
+                android:padding="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/label_weight"
+                android:id="@+id/textViewWeight"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="5"
+                    android:id="@+id/editTextWeight"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/label_percent"
+                    android:id="@+id/textViewPercent" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/label_notes"
+                android:id="@+id/textViewNotes" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/editTextNotes"
+                android:hint="@string/hint_notes"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_completed"
+                android:id="@+id/checkbox"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
