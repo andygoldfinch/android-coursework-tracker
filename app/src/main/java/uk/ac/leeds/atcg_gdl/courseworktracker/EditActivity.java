@@ -39,6 +39,8 @@ public class EditActivity extends AppCompatActivity {
         if (startingIntent.hasExtra("coursework")) {
             Coursework coursework = (Coursework) startingIntent.getSerializableExtra("coursework");
             displayCoursework(coursework);
+            textName.setEnabled(false);
+            textModule.setEnabled(false);
         }
     }
 
