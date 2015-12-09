@@ -1,6 +1,7 @@
 package uk.ac.leeds.atcg_gdl.courseworktracker;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -52,6 +53,13 @@ public class Coursework implements Serializable {
      */
     public Date getDeadline() {
         return deadline;
+    }
+
+    /**
+     * @return The deadline date as a formatted string
+     */
+    public String getFormattedDeadline() {
+        return new SimpleDateFormat("EEE dd-MM-yyyy").format(deadline);
     }
 
     /**
