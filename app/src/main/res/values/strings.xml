@@ -4,6 +4,7 @@
     <string name="edit_coursework_title">Edit Coursework</string>
     <string name="button_add">Add</string>
     <string name="button_save">Save</string>
+    <string name="button_delete">Delete</string>
     <string name="label_name">Name</string>
     <string name="label_module">Module</string>
     <string name="label_deadline">Deadline</string>
@@ -16,4 +17,6 @@
     <string name="hint_module">eg. Software Engineering</string>
     <string name="hint_notes">eg. Pair project with George</string>
     <string name="notification_title">Coursework Deadline</string>
+    <string name="toast_coursework_saved">Coursework Saved</string>
+    <string name="toast_coursework_deleted">Coursework Deleted</string>
 </resources>

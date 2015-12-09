@@ -38,6 +38,19 @@
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
+                    android:layout_width="60sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_delete"
+                    android:id="@+id/buttonDelete"
+                    android:onClick="handleButtonDelete"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorButtonText" />
+
+                <View android:layout_width="10dp"
+                    android:layout_height="0dp"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/button_save"

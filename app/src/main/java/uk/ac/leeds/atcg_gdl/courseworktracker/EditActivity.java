@@ -20,6 +20,8 @@ public class EditActivity extends AppCompatActivity {
     private EditText textNotes;
     private CheckBox checkbox;
 
+    private Coursework coursework;
+
     public EditActivity() {
 
     }
@@ -37,7 +39,7 @@ public class EditActivity extends AppCompatActivity {
 
         Intent startingIntent = getIntent();
         if (startingIntent.hasExtra("coursework")) {
-            Coursework coursework = (Coursework) startingIntent.getSerializableExtra("coursework");
+            coursework = (Coursework) startingIntent.getSerializableExtra("coursework");
             displayCoursework(coursework);
             textName.setEnabled(false);
             textModule.setEnabled(false);
@@ -85,7 +87,13 @@ public class EditActivity extends AppCompatActivity {
 
         Coursework coursework = new Coursework(moduleName, courseworkName, deadline, weight, notes, completed, false);
         new Database(getApplicationContext()).saveCoursework(coursework);
-        createToast("Coursework saved");
+        createToast(getString(R.string.toast_coursework_saved));
+        finish();
+    }
+
+    public void handleButtonDelete(View view) {
+        new Database(getApplicationContext()).deleteCoursework(coursework);
+        createToast(getString(R.string.toast_coursework_deleted));
         finish();
     }
 
