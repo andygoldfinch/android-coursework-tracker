@@ -86,10 +86,24 @@ public class Database extends SQLiteOpenHelper {
     }
 
     /**
+     * Deletes a coursework instance from the database.
+     *
+     * @param coursework The coursework to delete
+     */
+    public void deleteCoursework(Coursework coursework) {
+        String whereClause = "moduleName=? AND courseworkName=?";
+        String[] whereArgs = new String[]{
+                coursework.getModuleName(),
+                coursework.getCourseworkName()
+        };
+
+        getWritableDatabase().delete(TABLE_NAME, whereClause, whereArgs);
+    }
+
+    /**
      * Finds all Courseworks that are not marked as completed.
      *
      * @param includeCompleted If false, only uncompleted courseworks are returned
-     *
      * @return An array of Coursework instances.
      */
     public Coursework[] getCourseworks(boolean includeCompleted) {

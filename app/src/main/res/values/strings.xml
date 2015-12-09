@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Coursework Tracker</string>
+    <string name="add_coursework_title">Add Coursework</string>
+    <string name="edit_coursework_title">Edit Coursework</string>
     <string name="button_add">Add</string>
     <string name="button_save">Save</string>
     <string name="label_name">Name</string>
