@@ -12,7 +12,7 @@
     <string name="label_percent">%</string>
     <string name="label_notes">Notes</string>
     <string name="label_completed">Completed</string>
-    <string name="label_show_completed">Show Completed</string>
+    <string name="label_show_completed">Show Completed Courseworks</string>
     <string name="hint_name">eg. Coursework 2</string>
     <string name="hint_module">eg. Software Engineering</string>
     <string name="hint_notes">eg. Pair project with George</string>
