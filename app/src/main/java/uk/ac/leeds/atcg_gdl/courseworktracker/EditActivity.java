@@ -69,7 +69,13 @@ public class EditActivity extends AppCompatActivity {
         String notes = getNotes();
         boolean completed = getCompleted();
 
-        if (weight == -1) {
+        if (moduleName.length() < 1 || courseworkName.length() < 1) {
+            createToast("Module name and coursework name cannot be blank");
+            return;
+        }
+
+        if (weight < 0) {
+            createToast("Weight must be a number between 0 and 100");
             return;
         }
 
@@ -79,8 +85,7 @@ public class EditActivity extends AppCompatActivity {
         finish();
     }
 
-    private void displayCoursework(Coursework coursework)
-    {
+    private void displayCoursework(Coursework coursework) {
         setModuleName(coursework.getModuleName());
         setCourseworkName(coursework.getCourseworkName());
         setDeadline(coursework.getDeadline());
@@ -154,13 +159,11 @@ public class EditActivity extends AppCompatActivity {
     private int getWeight() {
         String text = weightText.getText().toString();
         if (text.length() == 0) {
-            createToast("Weight cannot be blank");
             return -1;
         }
 
         int weight = Integer.parseInt(text);
         if (weight < 0 || weight > 100) {
-            createToast("Weight must be between 0 & 100");
             return -1;
         }
 
