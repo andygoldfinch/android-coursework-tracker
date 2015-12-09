@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class Database extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Coursework.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     private static final String TABLE_NAME = "coursework";
 
     /**
@@ -37,6 +37,7 @@ public class Database extends SQLiteOpenHelper {
                 "weight INT, " +
                 "notes TEXT, " +
                 "completed INT, " +
+                "notified INT, " +
                 "PRIMARY KEY(moduleName, courseworkName))");
     }
 
@@ -81,15 +82,30 @@ public class Database extends SQLiteOpenHelper {
         values.put("weight", coursework.getWeight());
         values.put("notes", coursework.getNotes());
         values.put("completed", coursework.getCompleted() ? 1 : 0);
+        values.put("notified", coursework.getNotified() ? 1 : 0);
 
         getWritableDatabase().replace(TABLE_NAME, null, values);
+    }
+
+    /**
+     * Deletes a coursework instance from the database.
+     *
+     * @param coursework The coursework to delete
+     */
+    public void deleteCoursework(Coursework coursework) {
+        String whereClause = "moduleName=? AND courseworkName=?";
+        String[] whereArgs = new String[]{
+                coursework.getModuleName(),
+                coursework.getCourseworkName()
+        };
+
+        getWritableDatabase().delete(TABLE_NAME, whereClause, whereArgs);
     }
 
     /**
      * Finds all Courseworks that are not marked as completed.
      *
      * @param includeCompleted If false, only uncompleted courseworks are returned
-     *
      * @return An array of Coursework instances.
      */
     public Coursework[] getCourseworks(boolean includeCompleted) {
@@ -99,7 +115,8 @@ public class Database extends SQLiteOpenHelper {
                 "deadline",
                 "weight",
                 "notes",
-                "completed"
+                "completed",
+                "notified"
         };
 
         String selection = includeCompleted ? "" : "completed=0";
@@ -126,7 +143,8 @@ public class Database extends SQLiteOpenHelper {
                     new Date(c.getLong(c.getColumnIndexOrThrow("deadline"))),
                     c.getInt(c.getColumnIndexOrThrow("weight")),
                     c.getString(c.getColumnIndexOrThrow("notes")),
-                    c.getInt(c.getColumnIndexOrThrow("completed")) == 1
+                    c.getInt(c.getColumnIndexOrThrow("completed")) == 1,
+                    c.getInt(c.getColumnIndexOrThrow("notified")) == 1
             );
         }
 

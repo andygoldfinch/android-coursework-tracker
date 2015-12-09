@@ -38,12 +38,26 @@
 
                 <Button
                     style="?android:attr/buttonStyleSmall"
+                    android:layout_width="60sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_delete"
+                    android:id="@+id/buttonDelete"
+                    android:onClick="handleButtonDelete"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorButtonText" />
+
+                <View android:layout_width="10dp"
+                    android:layout_height="0dp"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/button_save"
                     android:id="@+id/buttonSave"
                     android:onClick="handleButtonSave"
-                    android:textSize="19dp" />
+                    android:background="@color/colorPrimary"
+                    android:textColor="@color/colorButtonText"/>
             </LinearLayout>
 
             <EditText
@@ -78,8 +92,9 @@
                 android:layout_width="247dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/datePickerDeadline"
-                android:headerBackground="#C0C0C0"
-                android:padding="8dp" />
+                android:headerBackground="@color/colorPrimary"
+                android:padding="8dp"
+                />
 
             <TextView
                 android:layout_width="wrap_content"

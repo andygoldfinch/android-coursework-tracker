@@ -20,6 +20,8 @@ public class EditActivity extends AppCompatActivity {
     private EditText textNotes;
     private CheckBox checkbox;
 
+    private Coursework coursework;
+
     public EditActivity() {
 
     }
@@ -37,10 +39,14 @@ public class EditActivity extends AppCompatActivity {
 
         Intent startingIntent = getIntent();
         if (startingIntent.hasExtra("coursework")) {
-            Coursework coursework = (Coursework) startingIntent.getSerializableExtra("coursework");
+            coursework = (Coursework) startingIntent.getSerializableExtra("coursework");
             displayCoursework(coursework);
             textName.setEnabled(false);
             textModule.setEnabled(false);
+
+            setTitle(R.string.edit_coursework_title);
+        } else {
+            setTitle(R.string.add_coursework_title);
         }
     }
 
@@ -69,18 +75,29 @@ public class EditActivity extends AppCompatActivity {
         String notes = getNotes();
         boolean completed = getCompleted();
 
-        if (weight == -1) {
+        if (moduleName.length() < 1 || courseworkName.length() < 1) {
+            createToast("Module name and coursework name cannot be blank");
             return;
         }
 
-        Coursework coursework = new Coursework(moduleName, courseworkName, deadline, weight, notes, completed);
+        if (weight < 0) {
+            createToast("Weight must be a number between 0 and 100");
+            return;
+        }
+
+        Coursework coursework = new Coursework(moduleName, courseworkName, deadline, weight, notes, completed, false);
         new Database(getApplicationContext()).saveCoursework(coursework);
-        createToast("Coursework saved");
+        createToast(getString(R.string.toast_coursework_saved));
         finish();
     }
 
-    private void displayCoursework(Coursework coursework)
-    {
+    public void handleButtonDelete(View view) {
+        new Database(getApplicationContext()).deleteCoursework(coursework);
+        createToast(getString(R.string.toast_coursework_deleted));
+        finish();
+    }
+
+    private void displayCoursework(Coursework coursework) {
         setModuleName(coursework.getModuleName());
         setCourseworkName(coursework.getCourseworkName());
         setDeadline(coursework.getDeadline());
@@ -154,13 +171,11 @@ public class EditActivity extends AppCompatActivity {
     private int getWeight() {
         String text = weightText.getText().toString();
         if (text.length() == 0) {
-            createToast("Weight cannot be blank");
             return -1;
         }
 
         int weight = Integer.parseInt(text);
         if (weight < 0 || weight > 100) {
-            createToast("Weight must be between 0 & 100");
             return -1;
         }
 
