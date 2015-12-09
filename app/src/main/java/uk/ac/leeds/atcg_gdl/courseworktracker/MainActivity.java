@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import java.util.ArrayList;
 
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button buttonAdd;
     private ListView listView;
+    private Switch completedSwitch;
     private Coursework[] courseworkArray;
 
     public static final String MESSAGE_KEY = "uk.ac.leeds.atcg_gdl.courseworktracker.MESSAGE";
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         buttonAdd = (Button) findViewById(R.id.buttonAdd);
         listView = (ListView) findViewById(R.id.listView);
+        completedSwitch = (Switch) findViewById(R.id.switch_completed);
+        completedSwitch.setOnCheckedChangeListener(new SwitchListener());
     }
 
     protected void onResume() {
@@ -80,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
             Intent editIntent = new Intent(MainActivity.this, EditActivity.class);
             editIntent.putExtra("coursework", courseworkArray[position]);
             startActivity(editIntent);
+        }
+    }
+
+    private class SwitchListener implements CompoundButton.OnCheckedChangeListener
+    {
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+        {
+            courseworkArray = new Database(getApplicationContext()).getCourseworks(isChecked);
+            populateListView(courseworkArray);
         }
     }
 }
