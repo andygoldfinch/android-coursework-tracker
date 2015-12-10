@@ -127,7 +127,7 @@ public class Database extends SQLiteOpenHelper {
         String sortOrder = "DEADLINE ASC";
 
         Cursor c = getReadableDatabase().query(
-                PREFERENCES_TABLE_NAME,
+                TABLE_NAME,
                 columns,
                 selection,
                 null,
@@ -167,7 +167,7 @@ public class Database extends SQLiteOpenHelper {
         String[] arguments = {name};
 
         Cursor c = getReadableDatabase().query(
-                TABLE_NAME,
+                PREFERENCES_TABLE_NAME,
                 columns,
                 selection,
                 arguments,
