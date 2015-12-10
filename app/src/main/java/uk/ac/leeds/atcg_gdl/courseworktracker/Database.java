@@ -178,6 +178,7 @@ public class Database extends SQLiteOpenHelper {
         );
 
         if (c.getCount() > 0) {
+            c.moveToPosition(0);
             return c.getInt(c.getColumnIndexOrThrow("value")) == 1;
         }
 
