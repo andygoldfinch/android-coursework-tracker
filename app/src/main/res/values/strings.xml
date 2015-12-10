@@ -15,7 +15,6 @@
     <string name="label_show_completed">Show Completed Courseworks</string>
     <string name="hint_coursework_name">eg. Coursework 2</string>
     <string name="hint_module_name">eg. Software Engineering</string>
-    <string name="hint_weight">eg. 10</string>
     <string name="hint_notes"></string>
     <string name="notification_title">Coursework Deadline</string>
     <string name="toast_coursework_saved">Coursework Saved</string>
