@@ -99,7 +99,7 @@ public class EditActivity extends AppCompatActivity {
             return null;
         }
 
-        return new Coursework(moduleName, courseworkName, deadline, weight, notes, completed, false);
+        return new Coursework(moduleName, courseworkName, deadline, weight, notes, completed);
     }
 
     /**
