@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         completedSwitch.setOnCheckedChangeListener(new SwitchListener());
 
         // Load the coursework list
+        completedSwitch.setChecked(new Database(getApplicationContext()).getPreference("showCompletedCourseworks", false));
         refreshCourseworks();
     }
 
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     private class SwitchListener implements CompoundButton.OnCheckedChangeListener {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             refreshCourseworks();
+            new Database(getApplicationContext()).setPreference("showCompletedCourseworks", isChecked);
         }
     }
 }
