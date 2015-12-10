@@ -60,7 +60,12 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> courseworkProcessed = new ArrayList<>();
         for (int i = 0; i < listedCoursework.length; ++i) {
             Coursework c = listedCoursework[i];
+            String completed = "";
+            if (c.getCompleted()) {
+                completed = "[COMPLETED] ";
+            }
             courseworkProcessed.add(
+                    completed +
                     c.getCourseworkName() + "\n" +
                             c.getModuleName() + " - " +
                             c.getFormattedDeadline());
