@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/it"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:id="@+id/it">
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_add"
-        android:id="@+id/buttonAdd"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="handleButtonAdd"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/colorButtonText"/>
+    tools:context=".MainActivity">
 
     <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/switch_completed"
         android:layout_alignParentTop="true"
-        android:layout_above="@id/buttonAdd"
-        android:dividerHeight="2sp"/>
+        android:divider="@android:color/transparent"
+        android:dividerHeight="15sp"
+        android:layout_gravity="center|start" />
+
+    <ImageButton
+        android:id="@+id/buttonAdd"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_above="@id/switch_completed"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@mipmap/button_add"
+        android:onClick="handleButtonAdd"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin" />
 
     <Switch
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_show_completed"
-        android:id="@+id/switch_completed"
-        android:layout_alignParentLeft="true"
+        android:id="@id/switch_completed"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_bottom_height"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/listView"/>
-
-
+        android:background="@color/colorPrimaryDark"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:text="@string/label_show_completed"
+        android:textColor="@color/colorButtonText" />
 
 </RelativeLayout>

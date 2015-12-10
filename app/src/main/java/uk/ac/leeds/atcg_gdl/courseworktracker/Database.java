@@ -11,8 +11,9 @@ import java.util.Date;
  */
 public class Database extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Coursework.db";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     private static final String TABLE_NAME = "coursework";
+    private static final String PREFERENCES_TABLE_NAME = "preferences";
 
     /**
      * Creates a Database instance.
@@ -39,6 +40,10 @@ public class Database extends SQLiteOpenHelper {
                 "completed INT, " +
                 "notified INT, " +
                 "PRIMARY KEY(moduleName, courseworkName))");
+
+        db.execSQL("CREATE TABLE " + PREFERENCES_TABLE_NAME + " (" +
+                "name TEXT PRIMARY KEY, " +
+                "value INT)");
     }
 
     /**
@@ -50,8 +55,9 @@ public class Database extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Just delete the database and start again
+        // Just delete the databases and start again
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + PREFERENCES_TABLE_NAME);
         onCreate(db);
     }
 
@@ -82,7 +88,6 @@ public class Database extends SQLiteOpenHelper {
         values.put("weight", coursework.getWeight());
         values.put("notes", coursework.getNotes());
         values.put("completed", coursework.getCompleted() ? 1 : 0);
-        values.put("notified", coursework.getNotified() ? 1 : 0);
 
         getWritableDatabase().replace(TABLE_NAME, null, values);
     }
@@ -116,7 +121,6 @@ public class Database extends SQLiteOpenHelper {
                 "weight",
                 "notes",
                 "completed",
-                "notified"
         };
 
         String selection = includeCompleted ? "" : "completed=0";
@@ -143,11 +147,55 @@ public class Database extends SQLiteOpenHelper {
                     new Date(c.getLong(c.getColumnIndexOrThrow("deadline"))),
                     c.getInt(c.getColumnIndexOrThrow("weight")),
                     c.getString(c.getColumnIndexOrThrow("notes")),
-                    c.getInt(c.getColumnIndexOrThrow("completed")) == 1,
-                    c.getInt(c.getColumnIndexOrThrow("notified")) == 1
+                    c.getInt(c.getColumnIndexOrThrow("completed")) == 1
             );
         }
 
         return result;
+    }
+
+    /**
+     * Retrieves a preference value from the database.
+     *
+     * @param name         The preference name
+     * @param defaultValue The default value when the preference is not set
+     * @return The preference value
+     */
+    public boolean getPreference(String name, boolean defaultValue) {
+        String[] columns = {"value"};
+        String selection = "name=?";
+        String[] arguments = {name};
+
+        Cursor c = getReadableDatabase().query(
+                PREFERENCES_TABLE_NAME,
+                columns,
+                selection,
+                arguments,
+                null,
+                null,
+                null,
+                null
+        );
+
+        if (c.getCount() > 0) {
+            c.moveToPosition(0);
+            return c.getInt(c.getColumnIndexOrThrow("value")) == 1;
+        }
+
+        return defaultValue;
+    }
+
+    /**
+     * Stores a named preference value in the database.
+     *
+     * @param name  The preference name
+     * @param value The preference value
+     */
+    public void setPreference(String name, boolean value) {
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        values.put("value", value ? 1 : 0);
+
+        getWritableDatabase().replace(PREFERENCES_TABLE_NAME, null, values);
     }
 }

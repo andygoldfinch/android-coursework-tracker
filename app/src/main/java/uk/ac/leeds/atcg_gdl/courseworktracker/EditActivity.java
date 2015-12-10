@@ -1,30 +1,34 @@
 package uk.ac.leeds.atcg_gdl.courseworktracker;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * An activity allowing the creation and editing of courseworks.
  */
 public class EditActivity extends AppCompatActivity {
 
-    private EditText textModule;
-    private EditText textName;
+    private EditText textModuleName;
+    private EditText textCourseworkName;
     private DatePicker datePicker;
     private EditText weightText;
     private EditText textNotes;
     private CheckBox checkbox;
 
     private Coursework coursework;
-
-    public EditActivity() {
-
-    }
 
     /**
      * Creates the activity.
@@ -35,18 +39,19 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
+
         loadWidgets();
 
-        Intent startingIntent = getIntent();
-        if (startingIntent.hasExtra("coursework")) {
-            coursework = (Coursework) startingIntent.getSerializableExtra("coursework");
-            displayCoursework(coursework);
-            textName.setEnabled(false);
-            textModule.setEnabled(false);
+        // Edit any coursework passed to the activity.
+        if (getIntent().hasExtra("coursework")) {
+            coursework = (Coursework) getIntent().getSerializableExtra("coursework");
 
+            setCoursework(coursework);
             setTitle(R.string.edit_coursework_title);
-        } else {
-            setTitle(R.string.add_coursework_title);
+
+            // Prevent editing the module and coursework name.
+            textCourseworkName.setEnabled(false);
+            textModuleName.setEnabled(false);
         }
     }
 
@@ -54,8 +59,8 @@ public class EditActivity extends AppCompatActivity {
      * Get references to all of the widgets and assign them to the fields in the class.
      */
     private void loadWidgets() {
-        textModule = (EditText) findViewById(R.id.editTextModule);
-        textName = (EditText) findViewById(R.id.editTextName);
+        textModuleName = (EditText) findViewById(R.id.editTextModule);
+        textCourseworkName = (EditText) findViewById(R.id.editTextName);
         datePicker = (DatePicker) findViewById(R.id.datePickerDeadline);
         weightText = (EditText) findViewById(R.id.editTextWeight);
         textNotes = (EditText) findViewById(R.id.editTextNotes);
@@ -63,75 +68,53 @@ public class EditActivity extends AppCompatActivity {
     }
 
     /**
-     * Attempts to save the coursework when the save button is pressed.
-     *
-     * @param view
+     * @return True if the view is editing an existing coursework entry.
      */
-    public void handleButtonSave(View view) {
-        String moduleName = getModuleName();
-        String courseworkName = getCourseworkName();
+    private boolean isEditing() {
+        return (coursework != null);
+    }
+
+    /**
+     * Attempts to retrieve the entered coursework instance.
+     * Runs validation on inputs.
+     *
+     * @return The coursework, or null if validation failed.
+     */
+    private Coursework getCoursework() {
+        String courseworkName = textCourseworkName.getText().toString();
+        String moduleName = textModuleName.getText().toString();
+        String notes = textNotes.getText().toString();
+        boolean completed = checkbox.isChecked();
+
         Date deadline = getDeadline();
         int weight = getWeight();
-        String notes = getNotes();
-        boolean completed = getCompleted();
 
         if (moduleName.length() < 1 || courseworkName.length() < 1) {
             createToast("Module name and coursework name cannot be blank");
-            return;
+            return null;
         }
 
         if (weight < 0) {
             createToast("Weight must be a number between 0 and 100");
-            return;
+            return null;
         }
 
-        Coursework coursework = new Coursework(moduleName, courseworkName, deadline, weight, notes, completed, false);
-        new Database(getApplicationContext()).saveCoursework(coursework);
-        createToast(getString(R.string.toast_coursework_saved));
-        finish();
+        return new Coursework(moduleName, courseworkName, deadline, weight, notes, completed);
     }
 
-    public void handleButtonDelete(View view) {
-        new Database(getApplicationContext()).deleteCoursework(coursework);
-        createToast(getString(R.string.toast_coursework_deleted));
-        finish();
-    }
+    /**
+     * Displays details for a coursework in the ui
+     *
+     * @param coursework The coursework to display
+     */
+    private void setCoursework(Coursework coursework) {
+        textCourseworkName.setText(coursework.getCourseworkName());
+        textModuleName.setText(coursework.getModuleName());
+        weightText.setText(String.valueOf(coursework.getWeight()));
+        textNotes.setText(coursework.getNotes());
+        checkbox.setChecked(coursework.getCompleted());
 
-    private void displayCoursework(Coursework coursework) {
-        setModuleName(coursework.getModuleName());
-        setCourseworkName(coursework.getCourseworkName());
         setDeadline(coursework.getDeadline());
-        setWeight(coursework.getWeight());
-        setNotes(coursework.getNotes());
-        setCompleted(coursework.getCompleted());
-    }
-
-    /**
-     * @return The module name from the ui
-     */
-    private String getModuleName() {
-        return textModule.getText().toString();
-    }
-
-    /**
-     * @param text The module name
-     */
-    private void setModuleName(String text) {
-        textModule.setText(text);
-    }
-
-    /**
-     * @return The coursework name from the ui
-     */
-    private String getCourseworkName() {
-        return textName.getText().toString();
-    }
-
-    /**
-     * @param text The coursework name
-     */
-    private void setCourseworkName(String text) {
-        textName.setText(text);
     }
 
     /**
@@ -163,7 +146,7 @@ public class EditActivity extends AppCompatActivity {
     }
 
     /**
-     * Attempts to retrived the weight value from the ui.
+     * Attempts to retrieve the weight value from the ui.
      * Displays a toast to the user if validation fails.
      *
      * @return The weight value, or -1 if it is not valid.
@@ -183,39 +166,70 @@ public class EditActivity extends AppCompatActivity {
     }
 
     /**
-     * @param number The weight of the coursework
+     * Adds items to the action bar when the activity starts.
+     *
+     * @param menu
+     * @return
      */
-    private void setWeight(int number) {
-        weightText.setText(String.valueOf(number));
-    }
-
-
-    /**
-     * @return The notes text from the ui
-     */
-    private String getNotes() {
-        return textNotes.getText().toString();
-    }
-
-    /**
-     * @param text The notes for the coursework
-     */
-    private void setNotes(String text) {
-        textNotes.setText(text);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_edit, menu);
+        return true;
     }
 
     /**
-     * @return Whether the coursework has been marked as completed.
+     * Called when the a button in the action bar is pressed.
+     *
+     * @param item
+     * @return
      */
-    private boolean getCompleted() {
-        return checkbox.isChecked();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Save button
+            case R.id.buttonSave:
+                handleButtonSave();
+                break;
+
+            // Delete button
+            case R.id.buttonDelete:
+                handleButtonDelete();
+                break;
+
+            // Back button
+            default:
+                finish();
+                break;
+        }
+
+        return true;
     }
 
     /**
-     * @param complete The value for the completed checkbox
+     * Attempts to save the coursework when the save button is pressed.
      */
-    private void setCompleted(boolean complete) {
-        checkbox.setChecked(complete);
+    public void handleButtonSave() {
+        Coursework coursework = getCoursework();
+        if (coursework == null) {
+            return;
+        }
+
+        new Database(getApplicationContext()).saveCoursework(coursework);
+        createToast(getString(R.string.toast_coursework_saved));
+        finish();
+    }
+
+    /**
+     * Called when the delete coursework button is pressed.
+     */
+    public void handleButtonDelete() {
+        if (isEditing()) {
+            new Database(getApplicationContext()).deleteCoursework(coursework);
+        }
+
+        createToast(getString(R.string.toast_coursework_deleted));
+        finish();
     }
 
     /**
