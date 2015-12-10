@@ -157,10 +157,11 @@ public class Database extends SQLiteOpenHelper {
     /**
      * Retrieves a preference value from the database.
      *
-     * @param name The preference name
+     * @param name         The preference name
+     * @param defaultValue The default value when the preference is not set
      * @return The preference value
      */
-    public boolean getPreference(String name) {
+    public boolean getPreference(String name, boolean defaultValue) {
         String[] columns = {"value"};
         String selection = "name=?";
         String[] arguments = {name};
@@ -176,7 +177,11 @@ public class Database extends SQLiteOpenHelper {
                 null
         );
 
-        return c.getInt(c.getColumnIndexOrThrow("value")) == 1;
+        if (c.getCount() > 0) {
+            return c.getInt(c.getColumnIndexOrThrow("value")) == 1;
+        }
+
+        return defaultValue;
     }
 
     /**
