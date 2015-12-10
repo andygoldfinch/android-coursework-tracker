@@ -25,16 +25,14 @@ public class Coursework implements Serializable {
      * @param weight         The weight, as a percentage from 1 to 100
      * @param notes          The users notes
      * @param completed      True if the coursework has been marked as completed
-     * @param notified       True if a notification has been displayed for the coursework
      */
-    public Coursework(String moduleName, String courseworkName, Date deadline, int weight, String notes, boolean completed, boolean notified) {
+    public Coursework(String moduleName, String courseworkName, Date deadline, int weight, String notes, boolean completed) {
         this.moduleName = moduleName;
         this.courseworkName = courseworkName;
         this.deadline = deadline;
         this.weight = weight;
         this.notes = notes;
         this.completed = completed;
-        this.notified = notified;
     }
 
     /**
@@ -84,19 +82,5 @@ public class Coursework implements Serializable {
      */
     public boolean getCompleted() {
         return completed;
-    }
-
-    /**
-     * @return True if a notification has been displayed for the coursework.
-     */
-    public boolean getNotified() {
-        return notified;
-    }
-
-    /**
-     * Sets notified to true.
-     */
-    public void setNotified() {
-        notified = true;
     }
 }
