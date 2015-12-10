@@ -59,7 +59,7 @@
                 android:text="@string/label_deadline"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <DatePicker
+            <uk.ac.leeds.atcg_gdl.courseworktracker.ScrollableDatePicker
                 android:id="@+id/datePickerDeadline"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
