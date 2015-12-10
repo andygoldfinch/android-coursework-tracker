@@ -22,47 +22,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textViewName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/label_coursework_name"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:id="@+id/buttonDelete"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="60sp"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:onClick="handleButtonDelete"
-                    android:text="@string/button_delete"
-                    android:textColor="@color/colorButtonText" />
-
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="0dp" />
-
-                <Button
-                    android:id="@+id/buttonSave"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:onClick="handleButtonSave"
-                    android:text="@string/button_save"
-                    android:textColor="@color/colorButtonText" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_coursework_name"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/editTextName"
@@ -119,8 +84,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="5"
-                    android:inputType="number"
-                    android:hint="@string/hint_weight"/>
+                    android:hint="@string/hint_weight"
+                    android:inputType="number" />
 
                 <TextView
                     android:id="@+id/textViewPercent"
