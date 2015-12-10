@@ -52,6 +52,8 @@ public class EditActivity extends AppCompatActivity {
             // Prevent editing the module and coursework name.
             textCourseworkName.setEnabled(false);
             textModuleName.setEnabled(false);
+        } else {
+            setTitle("Add Coursework");
         }
     }
 
