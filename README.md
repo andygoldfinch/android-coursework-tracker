@@ -2,6 +2,12 @@
 ## Description
 An android app to help university students keep track of outstanding courseworks. It allows them to record coursework names, deadlines, weights and notes, and check them off when they are done.
 
+## Screenshots
+<img src="screenshot_mainActivity_01.png" width="24%" />
+<img src="screenshot_mainActivity_02.png" width="24%" />
+<img src="screenshot_editActivity_add_01.png" width="24%" />
+<img src="screenshot_editActivity_edit_02.png" width="24%" />
+
 ## Features Used
 
 Main Activity
