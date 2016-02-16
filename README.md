@@ -4,19 +4,19 @@ An android app to help university students keep track of outstanding courseworks
 
 ## Features Used
 
-**Main Activity**
-    - Display courseworks with a ListView widget
-    - Switch used to toggle showing completed courseworks
+Main Activity
+- Display courseworks with a ListView widget
+- Switch used to toggle showing completed courseworks
 
-**Add/Edit Activity**
-    - Custom menu buttons for save / delete shown in the action bar
-    - DatePicker widget is used to select deadline dates
-    - Hints shown in text fields
+Add/Edit Activity
+- Custom menu buttons for save / delete shown in the action bar
+- DatePicker widget is used to select deadline dates
+- Hints shown in text fields
 
-**Database Storage**
-    - Coursework stored in an SqLite database
-    - User preferences (should completed courseworks be shown?) stored in the database
-    - Database queried using the Database class, extending SqLiteOpenHelper
+Database Storage
+- Coursework stored in an SqLite database
+- User preferences (should completed courseworks be shown?) stored in the database
+- Database queried using the Database class, extending SqLiteOpenHelper
 
 ## Widgets Used
 - RelativeLayout
